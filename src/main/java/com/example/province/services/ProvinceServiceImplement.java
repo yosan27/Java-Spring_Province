@@ -38,13 +38,7 @@ public class ProvinceServiceImplement implements ProvinceService{
 	@Override
 	public ResponseEntity<?> post(ProvinceDto dto) {
 		StatusDto<ProvinceEntity> result = new StatusDto<>();
-		boolean check = validationService.isValidName(dto.getProvinceName());
-		if(check == false) {
-			result.setStatus(String.valueOf(HttpStatus.BAD_REQUEST.value()));
-			result.setMessage("Invalid Name");
-			result.setData(null);
-			return ResponseEntity.badRequest().body(result);
-		}else if(dto.getProvinceCode().length() < 3 || dto.getProvinceCode().length() > 3) {
+		if(dto.getProvinceCode().length() < 3 || dto.getProvinceCode().length() > 3) {
 			result.setStatus(String.valueOf(HttpStatus.BAD_REQUEST.value()));
 			result.setMessage("Province Code Less Or More Than 3");
 			result.setData(null);
@@ -84,6 +78,24 @@ public class ProvinceServiceImplement implements ProvinceService{
 			return ResponseEntity.ok(provinceEntity);
 		}
 	}
+
+	@Override
+	public ResponseEntity<?> getById(Integer id) {
+		ProvinceEntity provinceEntity = provinceRepository.findById(id).get();
+		return ResponseEntity.ok(provinceEntity);
+	}
+
+	@Override
+	public ResponseEntity<?> restore(Integer id) {
+		ProvinceEntity provinceEntity = provinceRepository.findById(id).get();
+		provinceEntity.setStatus("0");
+		provinceRepository.save(provinceEntity);
+		StatusDto<ProvinceEntity> result = new StatusDto<>();
+		result.setStatus("200");
+		result.setMessage("Restored!!");
+		result.setData(provinceEntity);
+		return ResponseEntity.ok(result);
+	}
 	
 	public ProvinceEntity convert(ProvinceDto dto) {
 		ProvinceEntity provinceEntity = new ProvinceEntity();
@@ -92,5 +104,4 @@ public class ProvinceServiceImplement implements ProvinceService{
 		provinceEntity.setStatus("0");
 		return provinceEntity;
 	}
-
 }

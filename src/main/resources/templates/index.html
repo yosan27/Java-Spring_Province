@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Thymeleaf</title>
+<link href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet"></link>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+</head>
+<body>
+	<div th:replace = "fragments/header :: header"></div>
+	
+	<h2 class="text-center mt-3">Province Table</h2>
+	
+	<div class="container">
+		<form>
+			<div class="form-group">
+				<label class="col-sm-2" for="provinceCode">Province Code</label>
+				<input name="provinceCode" id="provinceCode" required autofocus>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-2" for="provinceName">Province Name</label>
+				<input name="provinceName" id="provinceName" required>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-dark mb-3 ml-2" id="btn-save">Save</button>
+					<span id="update-span" class="hide">
+						<button type="button" class="btn btn-dark mb-3 ml-2" id="btn-update-data">Save</button>
+					</span>
+					
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	
+	<div class="container">
+		<table class="table table-striped" id="table-province">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Province Code</th>
+					<th scope="col">Province Name</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			
+			<tbody id="body-province">
+			</tbody>	
+		</table>
+	</div>
+
+	<div th:replace = "fragments/footer :: footer"></div>
+	
+	<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script th:src="@{/js/myscript.js}"></script>
+	
+	
+	
+	<script>
+		tableProvince.create();
+		
+		$('#btn-save').click(function(){
+			formProvince.save();
+			window.location.reload();
+		});
+	</script>
+	
+</body>
+</html>

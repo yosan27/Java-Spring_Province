@@ -26,23 +26,33 @@ public class ProvinceController {
 		return ResponseEntity.ok(serviceProvince.getAll());
 	}
 	
+	@GetMapping("/get-by-id/{id}")
+	public ResponseEntity<?> getById(@PathVariable Integer id){
+		return ResponseEntity.ok(serviceProvince.getById(id));
+	}
+	
 	@GetMapping("/get-by-code/{code}")
-	public ResponseEntity<?> getByCode(@PathVariable String code){		serviceProvince.getByCode(code);
+	public ResponseEntity<?> getByCode(@PathVariable String code){
 		return ResponseEntity.ok(serviceProvince.getByCode(code));
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<?> getByCode(@RequestBody ProvinceDto dto){
+	public ResponseEntity<?> post(@RequestBody ProvinceDto dto){
 		return ResponseEntity.ok(serviceProvince.post(dto));
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> getByCode(@RequestBody ProvinceDto dto, @PathVariable Integer id){
+	public ResponseEntity<?> update(@RequestBody ProvinceDto dto, @PathVariable Integer id){
 		return ResponseEntity.ok(serviceProvince.update(dto, id));
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> getByCode(@PathVariable Integer id){
+	public ResponseEntity<?> delete(@PathVariable Integer id){
 		return ResponseEntity.ok(serviceProvince.delete(id));
+	}
+	
+	@DeleteMapping("/restore/{id}")
+	public ResponseEntity<?> restore(@PathVariable Integer id){
+		return ResponseEntity.ok(serviceProvince.restore(id));
 	}
 }
